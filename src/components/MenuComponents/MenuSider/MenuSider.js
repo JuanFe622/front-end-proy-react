@@ -7,7 +7,9 @@ import React from "react";
 import { Menu, Layout } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const MenuSider = () => {
+import './MenuSider.scss'
+
+export const MenuSider = (props) => {
   const { Sider } = Layout;
   const location = useLocation();
   const navigate = useNavigate();
@@ -38,8 +40,9 @@ export const MenuSider = () => {
   };
 
   return (
-    <Sider>
+    <Sider collapsed={props.menuCollapsed}>
       <Menu
+        className="menu-sider"
         mode="inline"
         defaultSelectedKeys={[location.pathname]}
         items={menuItems}
