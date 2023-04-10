@@ -2,28 +2,41 @@
 
 .menu-top{
     display: flex;
-    background-color: aquamarine;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    background-color: white;
+    height: 50px;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
 
-    button{
-        color: $primary_color;
-        &:hover{
-            color: $secondary_color;
-        }
-        &:focus,
-        &:active{
-            color: aquamarine;
-        }
+    &.menu-top-collapsed{
+        padding: 0;
     }
 
     &__left{
+        display: flex;
+        align-items: center;
+        height: 50px;
+
         &__logo{
             height: 40px;
-            padding: 0;
+            padding: 0 10px;
         }
     }
 
-    &__right{
-        position: absolute;
-        right: 0;
+    button{
+        color: $primary_color;
+        margin-left: 5px;
+        cursor: pointer;
+        font-size: 20px;
+
+        &:hover{
+            color: darkblue;
+        }
+        &:focus,
+        &:active{
+            color: rgb(136, 63, 63);
+        }
     }
 }

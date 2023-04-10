@@ -1,4 +1,5 @@
 import {
+  HomeOutlined,
   AppstoreOutlined,
   BankOutlined,
   TeamOutlined,
@@ -15,19 +16,19 @@ export const MenuSider = (props) => {
   const navigate = useNavigate();
 
   const menuItems = [
-    { key: "/admin", icon: <BankOutlined />, label: <span>Dashboard</span> },
+    { key: "/users", icon: <HomeOutlined />, label: <span>Dashboard</span> },
     {
-      key: "/admin-users",
+      key: "/products",
       icon: <TeamOutlined />,
       label: <span>Usuarios</span>,
     },
     {
-      key: "/admin-products",
+      key: "/services",
       icon: <AppstoreOutlined />,
       label: <span>Productos</span>,
     },
     {
-      key: "/admin-services",
+      key: "/config",
       icon: <AppstoreOutlined />,
       label: <span>Servicios</span>,
     },
@@ -39,15 +40,32 @@ export const MenuSider = (props) => {
     navigate(path);
   };
 
+  const itemRender = (item, index) => {
+    const { icon, label } = item;
+    const isSelected = location.pathname === item.key;
+    return (
+      <Menu.Item
+        key={item.key}
+        icon={icon}
+        className={
+          isSelected ? "ant-menu-item ant-menu-item-selected" : "ant-menu-item"
+        }
+      >
+        {label}
+      </Menu.Item>
+    );
+  };
+
   return (
-    <Sider collapsed={props.menuCollapsed}>
+    <Sider  className="menu-sider" collapsed={props.menuCollapsed}>
       <Menu
-        className="menu-sider"
         mode="inline"
         defaultSelectedKeys={[location.pathname]}
         items={menuItems}
         onClick={navigateTo}
-      />
+      >
+        {menuItems.map((item) => itemRender(item))}
+      </Menu>
     </Sider>
   );
 };

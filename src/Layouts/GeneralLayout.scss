@@ -1,16 +1,26 @@
 @import '../scss/index.scss';
 
-.layout-general{
-    transition: margin-left 0.2s;
+.general-layout {
 
-    &__header{
+    &-header {
+        background-color: $primary_color;
+        height: 50px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0;
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        display: flex;
-        padding: 0;
-        height: 50px;
-        background-color: aquamarine;
+    }
+
+    &-content {
+        min-height: calc(100vh - 55px);
+        padding: 25px 0 0 25px;
+    }
+
+    &-footer {
+        padding: 25px;
     }
 }

@@ -2,38 +2,34 @@ import React, {useState} from "react";
 import { Layout, Button } from "antd";
 import { MenuSider } from "../components/MenuComponents/MenuSider/MenuSider";
 import { MenuTop } from "../components/MenuComponents/MenuTop/MenuTop";
+import { FooterPage } from "../components/FooterPage/FooterPage";
 import { GithubOutlined } from "@ant-design/icons";
 import "./GeneralLayout.scss";
-export const GeneralLayout = (props) => {
 
+export const GeneralLayout = (props) => {
   const [menuCollapsed, setMenuCollapsed] = useState(false);
   const { Header, Content, Footer } = Layout;
   const { children } = props;
+
   return (
     <Layout>
       <MenuSider menuCollapsed={menuCollapsed} />
       <Layout 
-        className="layout-general"
-        style={{marginLeft: menuCollapsed ? "80px" : "200px"}}
+        className="general-layout"
         >
-        <Header
-          className="layout-general__header"
-          >
-          <MenuTop menuCollapsed={menuCollapsed} setMenuCollapsed={setMenuCollapsed} />
-        </Header>
-        <Content style={{margin: "24px 16px 0"}}>
+          <Header className="general-layout-header" >
+            <MenuTop 
+              menuCollapsed={menuCollapsed} 
+              setMenuCollapsed={setMenuCollapsed} 
+              />
+          </Header>
+        <Content className="general-layout-content">
           {children}
         </Content>
-        <Footer>
-          <Button 
-            type="link"
-            onClick={() => console.log("Ir a Github")}
-          >
-            <GithubOutlined style={{fontSize: "17px"}} />
-          </Button>
+        <Footer className="general-layout-footer">
+          <FooterPage></FooterPage>
         </Footer>
       </Layout>
-      {children}
     </Layout>
   );
 };

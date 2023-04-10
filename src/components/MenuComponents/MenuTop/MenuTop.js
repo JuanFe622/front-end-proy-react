@@ -7,25 +7,19 @@ import { UserOutlined } from '@ant-design/icons'
 
 export const MenuTop = (props) => {
   const {menuCollapsed, setMenuCollapsed} = props
-  
-  const userLogout = () => console.log('Logout')
 
   return (
-    <div className='menu-top'>
-      <div className='menu-top__left'>
-        <img className='menu-top__left__logo' src={Logo} alt="Logo empresa" ></img>
+    <div className="menu-top">
+      <div className="menu-top__left">
         <Button 
-          type='link' 
+          type="link" 
           onClick={() => setMenuCollapsed(!menuCollapsed)}
-        >
-          {menuCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          aria-label={menuCollapsed ? "Mostrar menu" : "Ocultar menu"}
+          >
+            {menuCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </Button>
+        <img className="menu-top__left__logo" src={Logo} alt="Logo" />
       </div>
-      <div className='menu-top__right'>
-        <Button type='link' onClick={userLogout}>
-          <UserOutlined />
-        </Button>
       </div>
-    </div>
-  )
-}
+  );
+};
