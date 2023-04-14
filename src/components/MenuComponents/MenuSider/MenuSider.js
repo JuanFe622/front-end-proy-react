@@ -1,68 +1,84 @@
+import React from "react";
+import { Layout, Menu } from "antd";
 import {
   HomeOutlined,
-  AppstoreOutlined,
-  BankOutlined,
   TeamOutlined,
-} from "@ant-design/icons/lib/icons";
-import React from "react";
-import { Menu, Layout } from "antd";
+  AppstoreOutlined,
+} from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
-
-import './MenuSider.scss'
+import "./MenuSider.scss";
 
 export const MenuSider = (props) => {
   const { Sider } = Layout;
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const menuItems = [
-    { key: "/users", icon: <HomeOutlined />, label: <span>Dashboard</span> },
+    { key: "users", icon: <HomeOutlined />, label: "Gestión de usuarios" },
     {
-      key: "/products",
+      key: "products",
       icon: <TeamOutlined />,
-      label: <span>Usuarios</span>,
+      label: "Portafolio de servicios",
     },
     {
-      key: "/services",
+      key: "clients",
       icon: <AppstoreOutlined />,
-      label: <span>Productos</span>,
+      label: "Clientes",
+      subMenu: [
+        { key: "clients/list",  icon: <TeamOutlined />, label: "Lista de clientes" },
+        { key: "clients/new",  icon: <TeamOutlined />, label: "Nuevo cliente" },
+      ],
     },
     {
-      key: "/config",
+      key: "news",
       icon: <AppstoreOutlined />,
-      label: <span>Servicios</span>,
+      label: "Gestión de noticias",
     },
   ];
 
   const navigateTo = (e) => {
     const path = e.key;
-    console.log("path: ", path);
+    console.log(path);
     navigate(path);
   };
 
   const itemRender = (item, index) => {
-    const { icon, label } = item;
+    const { icon, label, subMenu } = item;
     const isSelected = location.pathname === item.key;
+    if (subMenu) {
+      return (
+        <Menu.SubMenu key={item.key} icon={icon} title={label}>
+          {subMenu.map((subMenuItem) => (
+            <Menu.Item key={subMenuItem.key} onClick={navigateTo}>
+              {subMenuItem.label}
+            </Menu.Item>
+          ))}
+        </Menu.SubMenu>
+      );
+    }
     return (
       <Menu.Item
         key={item.key}
-        icon={icon}
+        icon={React.cloneElement(icon, { className: "menu-item-icon" })}
         className={
-          isSelected ? "ant-menu-item ant-menu-item-selected" : "ant-menu-item"
+          isSelected
+            ? "ant-menu-item ant-menu-item-selected"
+            : "ant-menu-item"
         }
       >
         {label}
       </Menu.Item>
     );
   };
-
   return (
-    <Sider  className="menu-sider" collapsed={props.menuCollapsed}>
+    <Sider className="menu-sider" collapsed={props.menuCollapsed}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={[location.pathname]}
-        items={menuItems}
         onClick={navigateTo}
+        defaultSelectedKeys={[location.pathname]}
+        defaultOpenKeys={menuItems
+          .filter((item) => item.subMenu)
+          .map((item) => item.key)}
       >
         {menuItems.map((item) => itemRender(item))}
       </Menu>
